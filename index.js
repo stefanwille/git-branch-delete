@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const child_process = require("child_process");
 const { prompt } = require("enquirer");
 const colors = require("ansi-colors");
