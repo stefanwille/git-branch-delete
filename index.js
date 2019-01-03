@@ -1,33 +1,78 @@
 const child_process = require("child_process");
 const { prompt } = require("enquirer");
-
-async function main() {
-  const response = await prompt({
-    type: "multiselect",
-
-    name: "fruit",
-    message: "Favorite fruit?",
-    choices: [
-      { name: "Apple", message: "Apple", value: "Apple" },
-      { name: "Orange", message: "Orange", value: "Orange" },
-      { name: "Raspberry", message: "Raspberry", value: "Raspberry" }
-    ]
-  });
-
-  console.log(response);
-  //=> { username: 'jonschlinkert' }
-}
-
-// main();
+const colors = require("ansi-colors");
 
 function getGitBranchNames() {
   const text = child_process.execSync("git branch", { encoding: "utf-8" });
   const lines = text.split("\n");
-  const branchNames = lines.map(line => line.substring(2));
+  const linesWithoutCurrentBranch = lines.filter(
+    line => !line.startsWith("* ")
+  );
+  const branchNames = linesWithoutCurrentBranch.map(line => line.substring(2));
   const filteredBranchNames = branchNames.filter(
     branchName => branchName !== ""
   );
   return filteredBranchNames;
 }
 
-console.log(getGitBranchNames());
+async function selectBranchNames(branchNames) {
+  const choices = branchNames.map(branchName => ({
+    name: branchName,
+    message: branchName,
+    value: branchName
+  }));
+  const response = await prompt({
+    type: "multiselect",
+    name: "branchNames",
+    message: "Which branches do you want to delete?",
+    choices
+  });
+
+  //=> { branchNames: true }
+
+  const selectedBranchNames = response.branchNames;
+  return selectedBranchNames;
+}
+
+async function askForConfirmation(branchesToDelete) {
+  console.log(
+    colors.red.bold.underline("You have selected these branches to delete:")
+  );
+  console.log(
+    branchesToDelete.map(branchName => ` - ${branchName}`).join("\n")
+  );
+  const response = await prompt({
+    type: "input",
+    name: "confirmation",
+    message: "Really delete these branches (yes / no)?",
+    validate: input =>
+      input === "yes" || input === "no" ? true : "Please answer 'yes' or 'no'"
+  });
+  //=> { confirmation: "yes" }
+  const choice = response.confirmation === "yes";
+  return choice;
+}
+
+function deleteBranches(branchesToDelete) {
+  for (const branchName of branchesToDelete) {
+    const command = `git branch -D ${branchName}`;
+    console.log(command);
+  }
+}
+
+async function main() {
+  const branchNames = getGitBranchNames();
+  const branchesToDelete = await selectBranchNames(branchNames);
+  if (branchesToDelete.length === 0) {
+    return;
+  }
+  const confirmed = await askForConfirmation(branchesToDelete);
+  if (!confirmed) {
+    console.log("No branches deleted.");
+    return;
+  }
+  deleteBranches(branchesToDelete);
+  console.log(colors.green("All selected branches deleted."));
+}
+
+main();
