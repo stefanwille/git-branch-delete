@@ -77,6 +77,13 @@ async function main() {
     return;
   }
   const branchNames = getGitBranchNames();
+  if (branchNames.length === 0) {
+    console.log(
+      colors.blue("There is only the current branch. Nothing to do.")
+    );
+    return;
+  }
+
   const branchesToDelete = await selectBranchNames(branchNames);
   if (branchesToDelete.length === 0) {
     return;

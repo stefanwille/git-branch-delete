@@ -15,3 +15,11 @@ git-branch-delete
 ```
 
 You will get a command line UI that helps you select and delete Git branches.
+
+## Publish to NPM
+
+Update version number in package.json. Then
+
+```bash
+npm publish
+```
