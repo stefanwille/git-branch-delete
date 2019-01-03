@@ -4,6 +4,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:stefanwille/git-branch-delete.git"
+  },
   "scripts": {
     "publish": "npm publish"
   },
@@ -13,5 +17,8 @@
   "devDependencies": {
     "eslint": "^5.11.1",
     "prettier": "^1.15.3"
+  },
+  "bin": {
+    "git-branch-delete": "./index.js"
   }
 }
