@@ -71,6 +71,7 @@ function deleteBranches(branchesToDelete) {
     const result = child_process.execSync(command, { encoding: "utf-8" });
     console.log(result);
   }
+  console.log(colors.green("All selected branches deleted."));
 }
 
 async function main() {
@@ -100,7 +101,6 @@ async function main() {
     return;
   }
   deleteBranches(branchesToDelete);
-  console.log(colors.green("All selected branches deleted."));
 }
 
 main();
