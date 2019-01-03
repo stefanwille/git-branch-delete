@@ -1,6 +1,6 @@
 # git-branch-delete
 
-This program makes it comfortable to select and delete a several Git branches in one step.
+Interactive command line tool that makes it comfortable to delete several Git branches at once.
 
 ## Installation
 
