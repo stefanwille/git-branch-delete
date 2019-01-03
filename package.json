@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "publish": "npm publish"
+  },
   "dependencies": {
     "enquirer": "^2.3.0"
   },
