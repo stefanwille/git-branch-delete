@@ -1,15 +1,12 @@
 {
   "name": "git-branch-delete",
   "author": "Stefan Wille (https://www.stefanwille.com)",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "main": "index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git@github.com:stefanwille/git-branch-delete.git"
-  },
-  "scripts": {
-    "publish": "npm publish"
   },
   "dependencies": {
     "enquirer": "^2.3.0"
