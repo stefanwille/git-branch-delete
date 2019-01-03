@@ -46,12 +46,16 @@ async function askForConfirmation(branchesToDelete) {
     colors.red.bold.underline("You have selected these branches to delete:")
   );
   console.log(
-    branchesToDelete.map(branchName => ` - ${branchName}`).join("\n")
+    branchesToDelete
+      .map((branchName, index) => ` ${index + 1}. ${branchName}`)
+      .join("\n")
   );
   const response = await prompt({
     type: "input",
     name: "confirmation",
-    message: "Really delete these branches (yes / no)?",
+    message: `Delete these ${
+      branchesToDelete.length
+    } branches? Type ${colors.green("yes")} or ${colors.green("no")}`,
     validate: input =>
       input === "yes" || input === "no" ? true : "Please answer 'yes' or 'no'"
   });
@@ -64,6 +68,8 @@ function deleteBranches(branchesToDelete) {
   for (const branchName of branchesToDelete) {
     const command = `git branch -D ${branchName}`;
     console.log(command);
+    const result = child_process.execSync(command, { encoding: "utf-8" });
+    console.log(result);
   }
 }
 
