@@ -1,3 +1,4 @@
+const child_process = require("child_process");
 const { prompt } = require("enquirer");
 
 async function main() {
@@ -17,4 +18,16 @@ async function main() {
   //=> { username: 'jonschlinkert' }
 }
 
-main();
+// main();
+
+function getGitBranchNames() {
+  const text = child_process.execSync("git branch", { encoding: "utf-8" });
+  const lines = text.split("\n");
+  const branchNames = lines.map(line => line.substring(2));
+  const filteredBranchNames = branchNames.filter(
+    branchName => branchName !== ""
+  );
+  return filteredBranchNames;
+}
+
+console.log(getGitBranchNames());
