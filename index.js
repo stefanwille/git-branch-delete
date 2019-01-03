@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 
+const fs = require("fs");
 const child_process = require("child_process");
 const { prompt } = require("enquirer");
 const colors = require("ansi-colors");
+
+function isGitRepository() {
+  return fs.existsSync(".git");
+}
 
 function getGitBranchNames() {
   const text = child_process.execSync("git branch", { encoding: "utf-8" });
@@ -63,6 +68,14 @@ function deleteBranches(branchesToDelete) {
 }
 
 async function main() {
+  if (!isGitRepository()) {
+    console.log(
+      colors.blue(
+        "This is not a Git repository. Please go to a directoy with .git directory."
+      )
+    );
+    return;
+  }
   const branchNames = getGitBranchNames();
   const branchesToDelete = await selectBranchNames(branchNames);
   if (branchesToDelete.length === 0) {
