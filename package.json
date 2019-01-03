@@ -9,7 +9,7 @@
     "url": "git@github.com:stefanwille/git-branch-delete.git"
   },
   "engines": {
-    "node": ">= 7.7.0"
+    "node": ">= 7.6.0"
   },
   "dependencies": {
     "ansi-colors": "^3.2.3",
