@@ -1,6 +1,8 @@
 # git-branch-delete
 
-Interactive command line tool that makes it comfortable to delete several Git branches at once.
+Interactive command line tool that makes it comfortable to delete several local Git branches at once.
+
+Demo:
 
 ![Demo](https://raw.githubusercontent.com/stefanwille/git-branch-delete/master/demo.gif "Demo")
 
@@ -16,12 +18,4 @@ npm i -g git-branch-delete
 git-branch-delete
 ```
 
-You will get a command line UI that helps you select and delete Git branches.
-
-## Publish to NPM
-
-Update version number in package.json. Then
-
-```bash
-npm publish
-```
+This starts a command line UI that helps you to select and delete local Git branches.
