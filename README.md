@@ -2,6 +2,8 @@
 
 Interactive command line tool that makes it comfortable to delete several Git branches at once.
 
+![Demo](https://raw.githubusercontent.com/stefanwille/git-branch-delete/master/demo.gif "Demo")
+
 ## Installation
 
 ```bash
