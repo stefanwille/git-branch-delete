@@ -1,5 +1,6 @@
 {
-  "name": "branchy",
+  "name": "git-branch-delete",
+  "author": "Stefan Wille (https://www.stefanwille.com)",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
