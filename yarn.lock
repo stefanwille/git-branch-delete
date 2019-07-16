@@ -38,10 +38,15 @@ ajv@^6.5.3, ajv@^6.6.1:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ansi-colors@^3.2.1, ansi-colors@^3.2.3:
+ansi-colors@^3.2.1:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.3.tgz#57d35b8686e851e2cc04c403f1c00203976a1813"
   integrity sha512-LEHHyuhlPY3TmuUYMh2oz89lTShfvgbmzaBcxve9t/9Wuy7Dwf4yoAKcND7KFT1HAQfqZ12qtc+DUrBMeKF9nw==
+
+ansi-colors@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"
+  integrity sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==
 
 ansi-escapes@^3.0.0:
   version "3.1.0"
@@ -180,10 +185,10 @@ doctrine@^2.1.0:
   dependencies:
     esutils "^2.0.2"
 
-enquirer@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/enquirer/-/enquirer-2.3.0.tgz#c362c9d84984ebe854def63caaf12983a16af552"
-  integrity sha512-RNGUbRVlfnjmpxV+Ed+7CGu0rg3MK7MmlW+DW0v7V2zdAUBC1s4BxCRiIAozbYB2UJ+q4D+8tW9UFb11kF72/g==
+enquirer@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/enquirer/-/enquirer-2.3.1.tgz#f1bf52ea38470525f41412d723a62ba6868559c6"
+  integrity sha512-7slmHsJY+mvnIrzD0Z0FfTFLmVJuIzRNCW72X9s35BshOoC+MI4jLJ8aPyAC/BelAirXBZB+Mu1wSqP0wpW4Kg==
   dependencies:
     ansi-colors "^3.2.1"
 
@@ -476,6 +481,11 @@ lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.5:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
+
+lodash@^4.17.14:
+  version "4.17.14"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
+  integrity sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==
 
 mimic-fn@^1.0.0:
   version "1.2.0"

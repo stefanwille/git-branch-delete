@@ -12,8 +12,9 @@
     "node": ">= 7.6.0"
   },
   "dependencies": {
-    "ansi-colors": "^3.2.3",
-    "enquirer": "^2.3.0"
+    "ansi-colors": "^4.1.1",
+    "enquirer": "^2.3.1",
+    "lodash": "^4.17.14"
   },
   "devDependencies": {
     "eslint": "^5.11.1",
