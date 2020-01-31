@@ -18,4 +18,10 @@ npm i -g git-branch-delete
 git-branch-delete
 ```
 
+or
+
+```bash
+git branch-delete
+```
+
 This starts a command line UI that helps you to select and delete local Git branches.
