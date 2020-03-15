@@ -24,4 +24,4 @@ or
 git branch-delete
 ```
 
-This starts a command line UI that helps you to select and delete local Git branches.
+This starts a command line UI that helps you select and delete local Git branches.
