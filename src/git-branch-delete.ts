@@ -6,8 +6,7 @@ const child_process = require("child_process");
 const enquirer = require("enquirer");
 const colors = require("ansi-colors");
 
-
-function isGitRepository(): boolean {
+const isGitRepository = (): boolean => {
   let dir = process.cwd();
   for (;;) {
     const gitDir = path.resolve(dir, ".git");
@@ -19,9 +18,9 @@ function isGitRepository(): boolean {
     }
     dir = path.resolve(dir, "..");
   }
-}
+};
 
-function getGitBranchNames(): string[] {
+const getGitBranchNames = (): string[] => {
   const text = child_process.execSync("git branch", { encoding: "utf-8" });
   const lines: string[] = text.split("\n");
   const linesWithoutCurrentBranch = lines.filter(
@@ -32,9 +31,9 @@ function getGitBranchNames(): string[] {
     branchName => branchName !== ""
   );
   return filteredBranchNames;
-}
+};
 
-async function selectBranchNames(branchNames: string[]) :   Promise<string[]> {
+const selectBranchNames = async (branchNames: string[]):   Promise<string[]> => {
   const choices = branchNames.map(branchName => ({
     name: branchName,
     message: branchName,
@@ -51,9 +50,9 @@ async function selectBranchNames(branchNames: string[]) :   Promise<string[]> {
 
   const selectedBranchNames = response.branchNames;
   return selectedBranchNames;
-}
+};
 
-async function askForConfirmation(branchesToDelete: string[]): Promise<boolean> {
+const askForConfirmation = async (branchesToDelete: string[]): Promise<boolean> => {
   console.log(
     colors.red.bold.underline("You have selected these branches to delete:")
   );
@@ -74,9 +73,9 @@ async function askForConfirmation(branchesToDelete: string[]): Promise<boolean> 
   //=> { confirmation: "yes" }
   const choice = response.confirmation === "yes";
   return choice;
-}
+};
 
-function deleteBranches(branchesToDelete: string[]) {
+const deleteBranches = (branchesToDelete: string[]) => {
   for (const branchName of branchesToDelete) {
     const command = `git branch -D ${branchName}`;
     console.log(command);
@@ -84,9 +83,9 @@ function deleteBranches(branchesToDelete: string[]) {
     console.log(result);
   }
   console.log(colors.green("All selected branches deleted."));
-}
+};
 
-async function main(): Promise<void> {
+const main = async (): Promise<void> => {
   if (!isGitRepository()) {
     console.log(
       colors.blue(
@@ -113,6 +112,6 @@ async function main(): Promise<void> {
     return;
   }
   deleteBranches(branchesToDelete);
-}
+};
 
 main();
