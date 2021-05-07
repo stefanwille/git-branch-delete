@@ -24,6 +24,9 @@
     "prettier": "2.2.1"
   },
   "bin": {
-    "git-branch-delete": "./git-branch-delete.js"
+    "git-branch-delete": "./build/git-branch-delete.js"
+  },
+  "scripts": {
+    "build": "tsc"
   }
 }
