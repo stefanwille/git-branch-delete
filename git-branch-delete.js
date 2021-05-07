@@ -1,12 +1,23 @@
 #!/usr/bin/env node
 
 const fs = require("fs");
+const path = require("path");
 const child_process = require("child_process");
 const { prompt } = require("enquirer");
 const colors = require("ansi-colors");
 
 function isGitRepository() {
-  return fs.existsSync(".git");
+  let dir = process.cwd();
+  for (;;) {
+    const gitDir = path.resolve(dir, ".git");
+    if (fs.existsSync(gitDir)) {
+      return true;
+    }
+    if (dir === "/") {
+      return false;
+    }
+    dir = path.resolve(dir, "..");
+  }
 }
 
 function getGitBranchNames() {
