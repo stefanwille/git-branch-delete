@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git@github.com:stefanwille/git-branch-delete.git"
   },
+  "files": [
+    "build/*"
+  ],
   "engines": {
     "node": ">= 7.6.0"
   },
