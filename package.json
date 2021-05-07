@@ -28,6 +28,7 @@
     "git-branch-delete": "./build/git-branch-delete.js"
   },
   "scripts": {
+    "prettier": "prettier src --write",
     "build": "tsc"
   }
 }

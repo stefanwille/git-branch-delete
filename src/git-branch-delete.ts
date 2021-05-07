@@ -24,26 +24,28 @@ const getGitBranchNames = (): string[] => {
   const text = child_process.execSync("git branch", { encoding: "utf-8" });
   const lines: string[] = text.split("\n");
   const linesWithoutCurrentBranch = lines.filter(
-    line => !line.startsWith("* ")
+    (line) => !line.startsWith("* ")
   );
-  const branchNames = linesWithoutCurrentBranch.map(line => line.substring(2));
+  const branchNames = linesWithoutCurrentBranch.map((line) =>
+    line.substring(2)
+  );
   const filteredBranchNames = branchNames.filter(
-    branchName => branchName !== ""
+    (branchName) => branchName !== ""
   );
   return filteredBranchNames;
 };
 
-const selectBranchNames = async (branchNames: string[]):   Promise<string[]> => {
-  const choices = branchNames.map(branchName => ({
+const selectBranchNames = async (branchNames: string[]): Promise<string[]> => {
+  const choices = branchNames.map((branchName) => ({
     name: branchName,
     message: branchName,
-    value: branchName
+    value: branchName,
   }));
   const response = await enquirer.prompt({
     type: "multiselect",
     name: "branchNames",
     message: "Which branches do you want to delete?",
-    choices
+    choices,
   });
 
   //=> { branchNames: true }
@@ -52,7 +54,9 @@ const selectBranchNames = async (branchNames: string[]):   Promise<string[]> => 
   return selectedBranchNames;
 };
 
-const askForConfirmation = async (branchesToDelete: string[]): Promise<boolean> => {
+const askForConfirmation = async (
+  branchesToDelete: string[]
+): Promise<boolean> => {
   console.log(
     colors.red.bold.underline("You have selected these branches to delete:")
   );
@@ -68,7 +72,7 @@ const askForConfirmation = async (branchesToDelete: string[]): Promise<boolean> 
       branchesToDelete.length
     } branches? Type ${colors.green("yes")} or ${colors.green("no")}`,
     validate: (input: string) =>
-      input === "yes" || input === "no" ? true : "Please answer 'yes' or 'no'"
+      input === "yes" || input === "no" ? true : "Please answer 'yes' or 'no'",
   });
   //=> { confirmation: "yes" }
   const choice = response.confirmation === "yes";
