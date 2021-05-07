@@ -3,10 +3,11 @@
 const fs = require("fs");
 const path = require("path");
 const child_process = require("child_process");
-const { prompt } = require("enquirer");
+const enquirer = require("enquirer");
 const colors = require("ansi-colors");
 
-function isGitRepository() {
+
+function isGitRepository(): boolean {
   let dir = process.cwd();
   for (;;) {
     const gitDir = path.resolve(dir, ".git");
@@ -20,9 +21,9 @@ function isGitRepository() {
   }
 }
 
-function getGitBranchNames() {
+function getGitBranchNames(): string[] {
   const text = child_process.execSync("git branch", { encoding: "utf-8" });
-  const lines = text.split("\n");
+  const lines: string[] = text.split("\n");
   const linesWithoutCurrentBranch = lines.filter(
     line => !line.startsWith("* ")
   );
@@ -33,13 +34,13 @@ function getGitBranchNames() {
   return filteredBranchNames;
 }
 
-async function selectBranchNames(branchNames) {
+async function selectBranchNames(branchNames: string[]) :   Promise<string[]> {
   const choices = branchNames.map(branchName => ({
     name: branchName,
     message: branchName,
     value: branchName
   }));
-  const response = await prompt({
+  const response = await enquirer.prompt({
     type: "multiselect",
     name: "branchNames",
     message: "Which branches do you want to delete?",
@@ -52,7 +53,7 @@ async function selectBranchNames(branchNames) {
   return selectedBranchNames;
 }
 
-async function askForConfirmation(branchesToDelete) {
+async function askForConfirmation(branchesToDelete: string[]): Promise<boolean> {
   console.log(
     colors.red.bold.underline("You have selected these branches to delete:")
   );
@@ -61,13 +62,13 @@ async function askForConfirmation(branchesToDelete) {
       .map((branchName, index) => ` ${index + 1}. ${branchName}`)
       .join("\n")
   );
-  const response = await prompt({
+  const response = await enquirer.prompt({
     type: "input",
     name: "confirmation",
     message: `Delete these ${
       branchesToDelete.length
     } branches? Type ${colors.green("yes")} or ${colors.green("no")}`,
-    validate: input =>
+    validate: (input: string) =>
       input === "yes" || input === "no" ? true : "Please answer 'yes' or 'no'"
   });
   //=> { confirmation: "yes" }
@@ -75,7 +76,7 @@ async function askForConfirmation(branchesToDelete) {
   return choice;
 }
 
-function deleteBranches(branchesToDelete) {
+function deleteBranches(branchesToDelete: string[]) {
   for (const branchName of branchesToDelete) {
     const command = `git branch -D ${branchName}`;
     console.log(command);
@@ -85,7 +86,7 @@ function deleteBranches(branchesToDelete) {
   console.log(colors.green("All selected branches deleted."));
 }
 
-async function main() {
+async function main(): Promise<void> {
   if (!isGitRepository()) {
     console.log(
       colors.blue(
