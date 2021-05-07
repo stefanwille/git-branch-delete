@@ -5,6 +5,14 @@ const path = require("path");
 const child_process = require("child_process");
 const enquirer = require("enquirer");
 const colors = require("ansi-colors");
+const _ = require("lodash");
+
+
+interface GitBranch {
+  name: string;
+  lastCommitRelative: string;
+  lastCommit: string;
+}
 
 const isGitRepository = (): boolean => {
   let dir = process.cwd();
@@ -20,26 +28,30 @@ const isGitRepository = (): boolean => {
   }
 };
 
-const getGitBranchNames = (): string[] => {
-  const text = child_process.execSync("git branch", { encoding: "utf-8" });
+const getGitBranches = (): GitBranch[] => {
+  const cmd =
+    "git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short):::%(committerdate:relative):::%(committerdate:iso8601)'";
+  const text = child_process.execSync(cmd, { encoding: "utf-8" });
   const lines: string[] = text.split("\n");
   const linesWithoutCurrentBranch = lines.filter(
     (line) => !line.startsWith("* ")
   );
-  const branchNames = linesWithoutCurrentBranch.map((line) =>
-    line.substring(2)
-  );
-  const filteredBranchNames = branchNames.filter(
-    (branchName) => branchName !== ""
-  );
-  return filteredBranchNames;
+  const branches: GitBranch[] = linesWithoutCurrentBranch.map((line) => {
+    const [name, lastCommitRelative, lastCommit] = line
+      .substring(2)
+      .split(":::");
+    return { name, lastCommit, lastCommitRelative };
+  });
+  const filteredBranches = branches.filter((branch) => branch.name !== "");
+  return filteredBranches;
 };
 
-const selectBranchNames = async (branchNames: string[]): Promise<string[]> => {
-  const choices = branchNames.map((branchName) => ({
-    name: branchName,
-    message: branchName,
-    value: branchName,
+const selectBranchNames = async (branches: GitBranch[]): Promise<string[]> => {
+  const sortedBranches: GitBranch[] = _.sortBy(branches, "name");
+  const choices = sortedBranches.map((branch) => ({
+    name: branch.name,
+    message: `${branch.name} (${branch.lastCommitRelative})`,
+    value: branch.name,
   }));
   const response = await enquirer.prompt({
     type: "multiselect",
@@ -98,15 +110,15 @@ const main = async (): Promise<void> => {
     );
     return;
   }
-  const branchNames = getGitBranchNames();
-  if (branchNames.length === 0) {
+  const branches = getGitBranches();
+  if (branches.length === 0) {
     console.log(
       colors.blue("There is only the current branch. Nothing to do.")
     );
     return;
   }
 
-  const branchesToDelete = await selectBranchNames(branchNames);
+  const branchesToDelete = await selectBranchNames(branches);
   if (branchesToDelete.length === 0) {
     return;
   }
