@@ -25,3 +25,5 @@ git branch-delete
 ```
 
 This starts a command line UI that helps you select and delete local Git branches.
+
+After the UI has launched, you can use the up and down arrows to change the selected branch. The spacebar can be used to add the branch to the set of to-be-deleted branches. Pressing enter will finalize the selection of branches to delete.
