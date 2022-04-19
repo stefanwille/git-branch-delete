@@ -1,5 +1,6 @@
 # Deployment
 
 ```bash
-$ np
+$ yarn build
+$ yarn publish
 ```
