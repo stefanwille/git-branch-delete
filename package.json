@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "eslint": "7.25.0",
+    "np": "^7.6.1",
     "prettier": "2.2.1"
   },
   "bin": {
@@ -33,6 +34,7 @@
   },
   "scripts": {
     "prettier": "prettier src --write",
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "np"
   }
 }
