@@ -4,5 +4,5 @@
 $ git push
 $ yarn build
 $ yarn publish
-$ git push
+$ git push --tags
 ```
