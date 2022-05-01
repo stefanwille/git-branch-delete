@@ -153,9 +153,9 @@ var isGitRepository = function () {
 };
 var getGitBranches = function () {
   var cmd =
-    "git for-each-ref --sort=committerdate refs/heads/ --format=%(HEAD):%(refname:short):::%(committerdate:relative):::%(committerdate:iso8601)";
+    "git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD):%(refname:short):::%(committerdate:relative):::%(committerdate:iso8601)'";
   var text = child_process.execSync(cmd, { encoding: "utf-8" });
-  var lines = text.split("\n");
+  var lines = text.replace(/'/ig,'').split("\n");
   var linesWithoutCurrentBranch = lines.filter(function (line) {
     return !line.startsWith("*:");
   });
