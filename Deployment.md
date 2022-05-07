@@ -3,6 +3,7 @@
 ```bash
 $ git push
 $ yarn build
+$ node build/git-branch-delete.js   # To test
 $ yarn publish
 $ git push --tags
 ```
