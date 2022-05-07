@@ -30,11 +30,11 @@ const isGitRepository = (): boolean => {
 
 const getGitBranches = (): GitBranch[] => {
   const cmd =
-    "git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short):::%(committerdate:relative):::%(committerdate:iso8601)'";
+    "git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD):%(refname:short):::%(committerdate:relative):::%(committerdate:iso8601)'";
   const text = child_process.execSync(cmd, { encoding: "utf-8" });
-  const lines: string[] = text.split("\n");
+  const lines: string[] = text.replace(/'/ig,'').split("\n");
   const linesWithoutCurrentBranch = lines.filter(
-    (line) => !line.startsWith("* ")
+    (line) => !line.startsWith("*:")
   );
   const branches: GitBranch[] = linesWithoutCurrentBranch.map((line) => {
     const [name, lastCommitRelative, lastCommit] = line
