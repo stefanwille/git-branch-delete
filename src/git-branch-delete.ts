@@ -93,7 +93,7 @@ const askForConfirmation = async (
 
 const deleteBranches = (branchesToDelete: string[]) => {
   for (const branchName of branchesToDelete) {
-    const command = `git branch -D ${branchName}`;
+    const command = `git branch -D '${branchName}'`;
     console.log(command);
     const result = child_process.execSync(command, { encoding: "utf-8" });
     console.log(result);
